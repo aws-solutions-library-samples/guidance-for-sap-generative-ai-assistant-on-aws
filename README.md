@@ -72,7 +72,7 @@ Click Next and click submit. It may take few minutes for access for model to get
 **Create S3 bucket** : YOURSLAMBDALAYERS3 in your AWS Account.
 Download following lambda layers to S3 bucket of your account.
 
-* langchainlayer : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
+* [langchainlayer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/langchainlayer.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
 
 * [pyAthena](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/SQLAlchemy.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/pyAthena/python.zip
 
