@@ -18,7 +18,8 @@ This guidance demonstrates how to improve business user productivity and experie
 
 ## Overview
 
-SAP business users across every industry manually analyze data, write executive summaries, and perform repetitive tasks. SAP Business User Productivity solutions on AWS improve productivity by querying business data in natural language, making it easy to query, removing the need to understand SAP data structures, navigate complex reports and remember SAP transaction codes. With the use of natural language, personas like C-Suite executives, managers, auditors and on-the-go users can effortlessly gain valuable insights, retrieve summaries, or perform ad-hoc tasks such as e-mail generation and status checks. <br>
+SAP business users across every industry analyze data, write executive summaries, and perform repetitive tasks. SAP Business User Productivity solutions on AWS improve productivity by querying business data in natural language, making it easy to query, removing the need to understand SAP data structures, navigate complex reports and remember SAP transaction codes. With the use of natural language, personas like C-Suite executives, managers, auditors and on-the-go users can effortlessly gain valuable insights, retrieve summaries, or perform ad-hoc tasks such as e-mail generation and status checks. 
+<br>
 This Guidance demonstrates how to improve business user productivity and experience using real-time data summaries, task automation, seamless natural language interactions. It uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance is designed to be extensible, allowing you to seamlessly incorporate additional components or integrate with other AWS services
 
 Below is the reference architecture for Generative AI assistance: 
@@ -26,7 +27,7 @@ Below is the reference architecture for Generative AI assistance:
 
 ![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)
 
-### Cost
+## Cost
 
 The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
 
