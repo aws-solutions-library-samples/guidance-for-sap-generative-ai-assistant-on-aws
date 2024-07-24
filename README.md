@@ -4,15 +4,13 @@
 
 1. [Overview](#overview)
     - [Cost](#cost)
-2. [Prerequisites](#prerequisites-required)
-    - [Operating System](#operating-system-required)
-3. [Deployment Steps](#deployment-steps-required)
-4. [Deployment Validation](#deployment-validation-required)
-5. [Running the Guidance](#running-the-guidance-required)
-6. [Next Steps](#next-steps-required)
-7. [Cleanup](#cleanup-required)
-
-### Required
+2. [Prerequisites](#prerequisites)
+    - [Operating System](#operating-system)
+3. [Deployment Steps](#deployment-steps)
+4. [Deployment Validation](#deployment-validation)
+5. [Running the Guidance](#running-the-guidance)
+6. [Next Steps](#next-steps)
+7. [Cleanup](#cleanup)
 
 ## Overview
 
@@ -20,6 +18,9 @@ SAP business users across every industry manually analyze data, write executive 
 This Guidance demonstrates how to improve business user productivity and experience using real-time data summaries, task automation, seamless natural language interactions. It uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance is designed to be extensible, allowing you to seamlessly incorporate additional components or integrate with other AWS services
 
 Below is the reference architecture for Generative AI assistance: 
+
+
+![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)
 
 ### Cost
 
@@ -44,9 +45,7 @@ SAP source data is extracted in Amazon S3 bucket. The source data can be extract
 Please take note of s3 path where data is stored example: s3://amazonjr-covid-glue-databucket/athenaresults/
 
 
-
 ## Deployment Steps
-
 
 
 1. **Creation of glue database catalogue**
@@ -57,28 +56,25 @@ You can schedule recreation of database catalogue to update database catalogue
 Please make sure you are able to query the data using Amazon Athena
 Please take note of: DATABASENAME and SCHEMANAME.
 
-1. **Creating access for Amazon Bedrock**
+2. **Creating access for Amazon Bedrock**
 
-Go to Amazon Bedrock — Model Access — Modify Model Access and select Claude:
-Click Next and click submit.
-It may take few minutes for access for model to get updated.
-Once updated, you will able to access the Model.
+Go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claude:
+
+![Model Access](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/2.Amazon%20Bedrock%20Claude%20Selection.jpeg?raw=true)
+
+Click Next and click submit. It may take few minutes for access for model to get updated then you will able to access the Model.
 
 
-1. **AWS Lambda Layer Creation**
+3. **AWS Lambda Layer Creation**
 
-Create S3 bucket : YOURSLAMBDALAYERS3 in your AWS Account.
+**Create S3 bucket** : YOURSLAMBDALAYERS3 in your AWS Account.
 Download following lambda layers to S3 bucket of your account.
-langchainlayer
-store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip
 
-Download following lambda layers to S3 bucket of your account.
-pyAthena
-store it in s3 as: s3://YOURSLAMBDALAYERS3/pyAthena/python.zip
+* langchainlayer : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
 
-Download following lambda layers to S3 bucket of your account.
-SQLAlchemy
-store it in s3 as: s3://YOURSLAMBDALAYERS3/SQLAlchemy/python.zip
+* [pyAthena](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/SQLAlchemy.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/pyAthena/python.zip
+
+* [SQLAlchemy](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/pyAthena.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/SQLAlchemy/python.zip
 
 1. Navigate to [AWS Lambda - Layers](https://console.aws.amazon.com/lambda/#/layers), then click **Create layer**
 2. Type the following in to the Lambda Layer screen, then click **Create**
@@ -87,16 +83,15 @@ store it in s3 as: s3://YOURSLAMBDALAYERS3/SQLAlchemy/python.zip
 5. Choose: **Upload a file from Amazon S3: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip**
 6. Compatible architectures: **x86_64**
 7. Compatible runtimes: **Python 3.10**
-Amazon S3 link URL: **s3://sagemaker-us-west-2-AWSAccountNumber/lambda_layer/python.zip**
+
+![lambda layer creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/3.LambdaLayerCreation.jpeg?raw=true)
 
 
 Repeat above steps 1-7 for pyAthena and  SQLAlchemy
 
 
 
-1. **Create Lambda Function**
-
-
+4. **Create Lambda Function**
 
 * Navigate to [AWS Lambda - Functions](https://console.aws.amazon.com/lambda/#/functions), then click **Create function**
 * Type the following information, then click **Create function**
@@ -104,7 +99,8 @@ Repeat above steps 1-7 for pyAthena and  SQLAlchemy
 * Function Name: SAPGenAIAssitant
 * Runtime: **Python 3.10**
 * Architectures: **x86_64**
-
+* 
+![create lambda function](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/4.%20Lambda%20Function%20Creation.jpeg?raw=true)
 
 Create  helpers.py file in Code source:
 
