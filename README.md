@@ -43,10 +43,17 @@ The following table provides a sample cost breakdown for deploying this Guidance
 
 ## Prerequisites
 
-Access to set-up AWS services: Amazon Lex, AWS lambda, Amazon Athena, Amazon Bedrock, Amazon S3 and AWS Glue from AWS Console
-Amazon S3 bucket is created to store SAP data.
+Access to deploy and configure following AWS services from console: 
+  * Amazon Lex
+  * AWS lambda
+  * Amazon Athena
+  * Amazon Bedrock
+  * Amazon S3
+  * AWS Glue
+  * Amazon S3 bucket
+    
 SAP source data is extracted in Amazon S3 bucket. The source data can be extracted using different approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card).
-Please take note of s3 path where data is stored example: s3://amazonjr-covid-glue-databucket/athenaresults/
+[Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/athenaresults/
 
 
 ## Deployment Steps
