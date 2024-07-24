@@ -22,8 +22,8 @@ SAP business users across industries analyze data, write executive summaries, an
 
 Generative AI assistant for SAP data improves productivity by enabling natural language quering for personas such as C-Suite executives, managers, auditors, and field users. This Guidance demonstrates how to improve business user productivity and experience using:
 
-* Natural language interactions 
-* Real-time data summaries
+* Natural language interaction
+* Real-time data summary
 * Task automation
 
 The solution uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance enables you to start your Generative AI journey with SAP data, allowing you to seamlessly incorporate additional components or integrate with other AWS services.
