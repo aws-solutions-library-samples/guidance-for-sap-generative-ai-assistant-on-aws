@@ -1,15 +1,16 @@
-# Guidance Title (required)
-
-The Guidance title should be consistent with the title established first in Alchemy.
-
-**Example:** *Guidance for Product Substitutions on AWS*
-
-This title correlates exactly to the Guidance it’s linked to, including its corresponding sample code repository. 
-
+# Guidance to create Generative AI Assistant for SAP Data
 
 ## Table of Contents (required)
 
-List the top-level sections of the README template, along with a hyperlink to the specific section.
+1. [Overview](#overview)
+    - [Cost](#cost)
+2. [Prerequisites](#prerequisites-required)
+    - [Operating System](#operating-system-required)
+3. [Deployment Steps](#deployment-steps-required)
+4. [Deployment Validation](#deployment-validation-required)
+5. [Running the Guidance](#running-the-guidance-required)
+6. [Next Steps](#next-steps-required)
+7. [Cleanup](#cleanup-required)
 
 ### Required
 
@@ -510,15 +511,7 @@ Follow [aws-lex-web-ui](https://github.com/aws-samples/aws-lex-web-ui)  guidance
 
 
 
-1. [Overview](#overview-required)
-    - [Cost](#cost)
-2. [Prerequisites](#prerequisites-required)
-    - [Operating System](#operating-system-required)
-3. [Deployment Steps](#deployment-steps-required)
-4. [Deployment Validation](#deployment-validation-required)
-5. [Running the Guidance](#running-the-guidance-required)
-6. [Next Steps](#next-steps-required)
-7. [Cleanup](#cleanup-required)
+
 
 ***Optional***
 
