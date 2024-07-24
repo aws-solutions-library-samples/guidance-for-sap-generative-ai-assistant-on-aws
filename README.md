@@ -1,6 +1,8 @@
 # Guidance to create Generative AI Assistant for SAP Data
 
-## Table of Contents (required)
+This Guidance demonstrates how to improve business user productivity and experience using real-time data summaries, task automation, seamless natural language interactions.
+
+## Table of Contents  
 
 1. [Overview](#overview)
 2. [Cost](#cost)
