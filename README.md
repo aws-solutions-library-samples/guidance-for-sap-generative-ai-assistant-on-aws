@@ -52,8 +52,8 @@ Access to deploy and configure following AWS services from console:
   * AWS Glue
   * Amazon S3 bucket
     
-SAP source data is extracted in Amazon S3 bucket. The source data can be extracted using different approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card).
-[Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/athenaresults/
+SAP source data is extracted in Amazon S3 bucket; you can use one of the approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card) to extract data from your SAP system.
+[Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/athenaresults/]
 
 
 ## Deployment Steps
