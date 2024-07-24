@@ -20,7 +20,6 @@ import logging
 import json
 import pprint
 import os
-import config
 from io import BytesIO
 
 

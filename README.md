@@ -5,7 +5,7 @@ This guidance demonstrates how to improve business user productivity and experie
 ## Table of Contents  
 
 1. [Overview](#overview)
-2. [Cost](#cost)
+    - [Cost](#cost)
 2. [Prerequisites](#prerequisites)
 3. [Deployment Steps](#deployment-steps)
 4. [Deployment Validation](#deployment-validation)
@@ -18,11 +18,17 @@ This guidance demonstrates how to improve business user productivity and experie
 
 ## Overview
 
-SAP business users across every industry analyze data, write executive summaries, and perform repetitive tasks. SAP Business User Productivity solutions on AWS improve productivity by querying business data in natural language, making it easy to query, removing the need to understand SAP data structures, navigate complex reports and remember SAP transaction codes. With the use of natural language, personas like C-Suite executives, managers, auditors and on-the-go users can effortlessly gain valuable insights, retrieve summaries, or perform ad-hoc tasks such as e-mail generation and status checks. 
-<br>
-This Guidance demonstrates how to improve business user productivity and experience using real-time data summaries, task automation, seamless natural language interactions. It uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance is designed to be extensible, allowing you to seamlessly incorporate additional components or integrate with other AWS services
+SAP business users across industries analyze data, write executive summaries, and perform repetitive tasks such as creating reports. These tasks usually take long time and effort, are error prone, and are depenednent on an individual's interpretation of data since we are working with large data sets. It also need specific skillsets related to understanding of data and reporting structure.
 
-Below is the reference architecture for Generative AI assistance: 
+Generative AI assistant for SAP data improves productivity by enabling natural language quering for personas such as C-Suite executives, managers, auditors, and field users. This Guidance demonstrates how to improve business user productivity and experience using:
+
+* real-time data summaries
+* task automation
+* seamless natural language interactions
+
+The solution uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance enables you to start your Generative AI journey with SAP data, allowing you to seamlessly incorporate additional components or integrate with other AWS services.
+
+Below is the reference architecture for Generative AI assistanct: 
 
 
 ![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)

@@ -18,7 +18,6 @@
 import logging
 import json
 import helpers
-import config
 import boto3
 import sqlalchemy
 import os
