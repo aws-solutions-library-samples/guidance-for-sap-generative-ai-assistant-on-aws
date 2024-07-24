@@ -3,14 +3,16 @@
 ## Table of Contents (required)
 
 1. [Overview](#overview)
-    - [Cost](#cost)
+2. [Cost](#cost)
 2. [Prerequisites](#prerequisites)
-    - [Operating System](#operating-system)
 3. [Deployment Steps](#deployment-steps)
 4. [Deployment Validation](#deployment-validation)
 5. [Running the Guidance](#running-the-guidance)
 6. [Next Steps](#next-steps)
 7. [Cleanup](#cleanup)
+8. [FAQ, known issues, additional considerations, and limitations](#faq)
+9. [Notices](#notices)
+10. [Contributors](#Contributors)
 
 ## Overview
 
@@ -194,19 +196,10 @@ Follow [aws-lex-web-ui](https://github.com/aws-samples/aws-lex-web-ui)  guidance
 
 ## Cleanup
 
-
-
 ## FAQ
 
-
-
-## Contributors
-
-
-***Optional***
-
-8. [FAQ, known issues, additional considerations, and limitations](#faq-known-issues-additional-considerations-and-limitations-optional)
-9. [Revisions](#revisions-optional)
-10. [Notices](#notices)
+## Notices
 
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
+
+## Contributors
