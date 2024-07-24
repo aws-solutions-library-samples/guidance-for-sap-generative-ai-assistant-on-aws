@@ -48,7 +48,6 @@ Access to deploy and configure following AWS services from console:
   * AWS lambda
   * Amazon Athena
   * Amazon Bedrock
-  * Amazon S3
   * AWS Glue
   * Amazon S3 bucket
     
