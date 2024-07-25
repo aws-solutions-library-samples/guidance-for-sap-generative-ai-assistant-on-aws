@@ -93,7 +93,7 @@ Following diagram shows the deployment steps for the solution and we discuss eac
 
 1. **Get Access to Amazon Bedrock Models**
 
-Go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claude:
+To get access to Claude foundation model (FM), go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claude:
 
 ![Model Access](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/2.Amazon%20Bedrock%20Claude%20Selection.jpeg?raw=true)
 
@@ -112,31 +112,33 @@ Please take note of: DATABASENAME and SCHEMANAME.
 
 3. **Create AWS Lambda Layer**
 
-**Create S3 bucket** : YOURSLAMBDALAYERS3 in your AWS Account.
-Download following lambda layers to S3 bucket of your account. Rename the files to python.zip as shown in example below.
+Following steps show how to create Lambda layer:
 
-* [langchainlayer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/langchainlayer.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
+1. Create S3 bucket: Assuming name YOURSLAMBDALAYERS3 (replace with any name of your choice) in your AWS Account. Then download following lambda layers to S3 bucket of your account (rename the files to python.zip as shown in example below)
 
-* [pyAthena](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/SQLAlchemy.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/pyAthena/python.zip
+   * [langchainlayer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/langchainlayer.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
 
-* [SQLAlchemy](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/pyAthena.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/SQLAlchemy/python.zip
+   * [pyAthena](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/SQLAlchemy.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/pyAthena/python.zip
 
-1. Navigate to [AWS Lambda - Layers](https://console.aws.amazon.com/lambda/#/layers), then click **Create layer**
-2. Type the following in to the Lambda Layer screen, then click **Create**
-3.Name: langchainlayer
-4. Description: langchainlayer
-5. Choose: **Upload a file from Amazon S3: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip**
-6. Compatible architectures: **x86_64**
-7. Compatible runtimes: **Python 3.10**
+   * [SQLAlchemy](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/pyAthena.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/SQLAlchemy/python.zip
+
+2. Navigate to [AWS Lambda - Layers](https://console.aws.amazon.com/lambda/#/layers), then click **Create layer**
+   * Type the following in to the Lambda Layer screen, then click Create Name: langchainlayer
+   * Description: langchainlayer
+   * Choose: **Upload a file from Amazon S3: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip**
+   * Compatible architectures: **x86_64**
+   * Compatible runtimes: **Python 3.10**
 
 ![lambda layer creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/3.LambdaLayerCreation.jpeg?raw=true)
 
 
-Repeat above steps 1-7 for pyAthena and  SQLAlchemy
+      **Repeat step 2 above for pyAthena and  SQLAlchemy**
 
 
 
 4. **Create AWS Lambda Function**
+
+Follow the steps below to create the Lambda function (as shown in the screenshot below): 
 
 * Navigate to [AWS Lambda - Functions](https://console.aws.amazon.com/lambda/#/functions), then click **Create function**
 * Type the following information, then click **Create function**
@@ -147,16 +149,17 @@ Repeat above steps 1-7 for pyAthena and  SQLAlchemy
   
 ![create lambda function](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/4.%20Lambda%20Function%20Creation.jpeg?raw=true)
 
-* Add [helpers.py](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/helpers.py) file in Code source and remember to change the athena connection parameters based on your AWS account configuration
+* Add [helpers.py](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/helpers.py) file in Code source (as shown in the following screenshot) and remember to change the athena connection parameters in the code (.py file) based on your AWS account configuration
 
 ![add code to lambda](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/5.LambdaHelperFileCreation.jpeg?raw=true)
  
 * Add [lambda_fuction.py](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/lambda_function.py), then click **Deploy**
 
+**Add Layers to Lambda Function**
 
- 
+Follow these steps to add layers to the Lambda function:
 
-1. Click **Layers**
+1. Click **Layers** button in your Lambda function 
 2. Click **Add a layer**
 3. Type the following information, then click **Add**
 
@@ -166,14 +169,21 @@ Repeat above steps 1-7 for pyAthena and  SQLAlchemy
   
 ![add layer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/6.LambdaLayerAddition.jpeg?raw=true)
 
-Repeat above steps to add layers for **pyAthena** and **SQLAlchemy**
+      Repeat above steps to add layers for **pyAthena** and **SQLAlchemy**
+
+**Changing Default configuration of Lambda Function**
+
+Follow these steps to change the default configuration in your lambda function (as shown in the following screenshot):
 
    1. Go to **Configuration - General Configuration**, then click **Edit**
    2. Change timeout from 3 seconds to **10 minutes**, then click **Save**
 
 ![configuration settings](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/7.LambdaEditConfiguraitonIncreaseTimeOut.jpeg?raw=true)
 
-**Create Role**
+**Update Role for the Lambda Function**
+
+Follow these steps to update the role in the Lambda function to get right access to services in this guidance(as shown in the following screenshot):
+
 
    * Go to **Configuration - Permissions**, then click at the role name **SAPGenAIAssistant-role-xxxxxxx**
 
@@ -188,49 +198,48 @@ Repeat above steps to add layers for **pyAthena** and **SQLAlchemy**
 
 **5. **Create Amazon Lex Bot****
 
-Follow these steps to creaste Amazon Lex Bot:
+Follow these steps to create Amazon Lex Bot (as shown in next 2 screenshots):
 
-1.Navigate to [Amazon Lex](https://us-east-1.console.aws.amazon.com/lexv2/home?region=us-east-1)
-2.Click Create bot
-3.Choose create blank bot and Provide Bot name and configurations and click Next:
+* Navigate to [Amazon Lex](https://us-east-1.console.aws.amazon.com/lexv2/home?region=us-east-1)
+* Click Create bot
+* Choose create blank bot and Provide Bot name and configurations and click Next:
 
 ![Lex Bot Creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/9.AmazonLexBotCreation1.jpeg?raw=true)
 
 ![Lex IAM creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/10.AmazonLexBotCreation2.jpeg?raw=true)
 
-Select language as English and click Done to create Bot.
+* Select language as English and click Done to create Bot.
 
-4.Provide name to NewIntent as greeting_intent and update description “this is hello intent” 
+* Provide name to NewIntent as greeting_intent and update description “this is hello intent” 
 
 ![Lex new intent](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/11.AmazonLexNewIntentCreation.jpeg?raw=true)
 
-Provide at least one utterance as “hi” and save intent
+* Provide at least one utterance as “hi” and save intent
 
 ![sample lex utterance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/12.AmazonLexUtterance.jpeg?raw=true)
 
-1. Navigate to Versions >Version: Draft>All languages>Language: English (US)>Intents
-2. Click on FallbackIntent and Activate Fulfillment and click Save Intent and Click Build:
+* Navigate to Versions >Version: Draft>All languages>Language: English (US)>Intents
+* Click on FallbackIntent and Activate Fulfillment and click Save Intent and Click Build:
 
 ![lex fallback intent](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/13.AmazonLexFallBackIntent.jpeg?raw=true)
 
-1. Click on Test
-2. Select Lambda function created and select $Latest and save:
+* Click on Test
+* Select Lambda function created and select $Latest and save:
 
 ![save lambda test function](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/14.AmazonLexTestLambdaFunction.jpeg?raw=true)
 
-Type questions to test the response:
+* Type questions to test the response:
 
 ![test response from lex](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/15.AmazonLexTestResult.jpeg?raw=true)
 
+<br>
 
 6. **Create Strimlit App for Lex**
 
-Follow [aws-lex-web-ui](https://github.com/aws-samples/aws-lex-web-ui)  guidance to create strimlit App 
-
+You can use any frontend application of your choice such as SAP BTP Build Apps. This guidance uses Streamlit app as shown in [this guidance](https://github.com/aws-samples/aws-lex-web-ui).
 
 
 ## Running the Guidance
-
 
 
 ## Next Steps
@@ -246,3 +255,5 @@ Follow [aws-lex-web-ui](https://github.com/aws-samples/aws-lex-web-ui)  guidance
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
 
 ## Contributors
+
+
