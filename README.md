@@ -33,6 +33,23 @@ Following diagram shows the reference architecture for the SAP Generative AI ass
 
 ![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)
 
+The steps shown in the diagram are as follows:
+
+1) Use Amazon S3 to store the data extract from SAP using your favorite tool or procedure; the data can be in CSV or JSON format. This guidance uses csv 
+
+2) Amazon Athena uses AWS Glue Data Catalog (not shown in diagram) to query the tables directly in Amazon S3
+
+3) User interacts with StreamLit chat application to perform tasks or ask questions
+
+4) Amazon Lex natural language chatbot curates communication to handle the response & sends the users question to AWS Lambda for processing
+
+5) AWS Lambda sends the response back to the Chat App via Amazon Lex. Lex stores the message history in a session
+
+6) The AWS Lambda function uses LangChain to formulate Athena query and retrieves relevant data 
+
+7) The AWS Lambda invokes Amazon Bedrock endpoint and provides the user question and relevant data from Athena. Amazon Bedrock responds with answer in human readable format
+
+
 ## Cost
 
 _We recommend creating a [Budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) through [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this Guidance._
@@ -44,12 +61,12 @@ The following table provides a sample cost breakdown for deploying this Guidance
 
 |AWS service	|Dimensions	|Cost [USD]	|
 |---	|---	|---	|
-|Amazon Lex	|	|	|
-|AWS Lambda	|	|	|
-|Amazon Athena	|	|	|
-|Amazon Bedrock	|	|	|
-|Amazon S3	|	|	|
-|AWS Glue	|	|	|
+|Amazon Lex	| 2000 text requests	| 0.75	|
+|AWS Lambda	|	1000 invocations| 0	|
+|Amazon Athena	| 3041 query executions	| 1	|
+|Amazon Bedrock | 1000 input/output tokens	|18	|
+|Amazon S3	|1 TB standard	|24	|
+|AWS Glue	|1 stored object accessed 1000 times	|1	|
 |	|	|	|
 
 ## Prerequisites
@@ -74,16 +91,7 @@ Following diagram shows the deployment steps for the solution and we discuss eac
 ![Deployment Steps](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/Deployment-Steps.jpg?raw=true)
 
 
-
-1. **Creation of glue database catalogue**
-
-For data stored in Amazon S3, use AWS Glue crawler to create dabase catalogue. Follow the instruction as per the [blog](https://aws.amazon.com/blogs/big-data/introducing-aws-glue-crawlers-using-aws-lake-formation-permission-management/). 
-You can schedule recreation of database catalogue to update database catalogue
-
-Please make sure you are able to query the data using Amazon Athena
-Please take note of: DATABASENAME and SCHEMANAME.
-
-2. **Creating access for Amazon Bedrock**
+1. **Get Access to Amazon Bedrock Models**
 
 Go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claude:
 
@@ -91,11 +99,21 @@ Go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claud
 
 Click Next and click submit. It may take few minutes for access for model to get updated then you will able to access the Model.
 
+2. **Create AWS glue data catalog**
 
-3. **AWS Lambda Layer Creation**
+<TO BE REVISITED>
+
+For data stored in Amazon S3, use AWS Glue crawler to create database. Follow the instruction as per the [blog](https://aws.amazon.com/blogs/big-data/introducing-aws-glue-crawlers-using-aws-lake-formation-permission-management/). 
+You can schedule recreation of database catalogue to update database catalogue
+
+Please make sure you are able to query the data using Amazon Athena
+Please take note of: DATABASENAME and SCHEMANAME.
+
+
+3. **Create AWS Lambda Layer**
 
 **Create S3 bucket** : YOURSLAMBDALAYERS3 in your AWS Account.
-Download following lambda layers to S3 bucket of your account.
+Download following lambda layers to S3 bucket of your account. Rename the files to python.zip as shown in example below.
 
 * [langchainlayer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/deployment/langchainlayer.zip) : store it in s3 as: s3://YOURSLAMBDALAYERS3/langchainlayer/python.zip)
 
@@ -118,7 +136,7 @@ Repeat above steps 1-7 for pyAthena and  SQLAlchemy
 
 
 
-4. **Create Lambda Function**
+4. **Create AWS Lambda Function**
 
 * Navigate to [AWS Lambda - Functions](https://console.aws.amazon.com/lambda/#/functions), then click **Create function**
 * Type the following information, then click **Create function**
