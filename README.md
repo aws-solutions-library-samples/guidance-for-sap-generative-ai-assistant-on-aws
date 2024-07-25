@@ -20,7 +20,7 @@ This guidance demonstrates how to improve business user productivity and experie
 
 SAP business users across industries analyze data, write executive summaries, and perform repetitive tasks such as creating reports. These tasks usually take long time and effort, are error prone, and are depenednent on an individual's interpretation of data since we are working with large data sets. It also need specific skillsets related to understanding of data and reporting structure.
 
-Generative AI assistant for SAP data improves productivity by enabling natural language quering for personas such as C-Suite executives, managers, auditors, and field users. This Guidance demonstrates how to improve business user productivity and experience using:
+Generative AI assistant for SAP data improves productivity by enabling natural language quering for personas such as C-Suite executives, managers, auditors, and field users. This Guidance demonstrates how to improve business user experience and productivity by providing following:
 
 * Natural language interaction
 * Real-time data summary
@@ -28,12 +28,16 @@ Generative AI assistant for SAP data improves productivity by enabling natural l
 
 The solution uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance enables you to start your Generative AI journey with SAP data, allowing you to seamlessly incorporate additional components or integrate with other AWS services.
 
-Below diagram shows the reference architecture for the SAP Generative AI assistanct: 
+Following diagram shows the reference architecture for the SAP Generative AI assistanct: 
 
 
 ![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)
 
 ## Cost
+
+_We recommend creating a [Budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) through [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this Guidance._
+
+### Sample Cost breakdown
 
 The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
 
@@ -50,7 +54,8 @@ The following table provides a sample cost breakdown for deploying this Guidance
 
 ## Prerequisites
 
-Access to deploy and configure following AWS services from console: 
+To deploy this solution in your AWS account, you need acces to deploy and configure following AWS services from console: 
+
   * Amazon Lex
   * AWS lambda
   * Amazon Athena
@@ -58,11 +63,16 @@ Access to deploy and configure following AWS services from console:
   * AWS Glue
   * Amazon S3 bucket
     
-SAP source data is extracted in Amazon S3 bucket; you can use one of the approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card) to extract data from your SAP system.
-[Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/athenaresults/]
+This guidance assumes SAP data is extracted in an Amazon S3 bucket; you can use one of the approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card) to extract data from your SAP system.
+[Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/PATHtoData/]
 
 
 ## Deployment Steps
+
+Following diagram shows the deployment steps for the solution and we discuss each step in this section:
+
+![Deployment Steps](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/Deployment-Steps.jpg?raw=true)
+
 
 
 1. **Creation of glue database catalogue**
