@@ -28,26 +28,28 @@ Generative AI assistant for SAP data improves productivity by enabling natural l
 
 The solution uses Amazon Bedrock for generative AI and Amazon Lex for conversational AI assistant. This Guidance enables you to start your Generative AI journey with SAP data, allowing you to seamlessly incorporate additional components or integrate with other AWS services.
 
-Following diagram shows the reference architecture for the SAP Generative AI assistanct: 
+Following diagram shows the reference architecture for the SAP Generative AI assistant: 
 
 
-![reference architecture for Generative AI assistance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/1.Architecture.jpeg?raw=true)
+![reference architecture for Generative AI assistance](assets/images/1.Architecture.jpeg?raw=true)
 
-The steps shown in the diagram are as follows:
+Follwing are the steps for the solution as shown in the architecture:
 
-1) Use Amazon S3 to store the data extract from SAP using your favorite tool or procedure; the data can be in CSV or JSON format. This guidance uses csv 
+1) Extract or federate data from SAP ERP (or SAP Datasphere) using [AWS SAP Data integration solutions](https://aws.amazon.com/solutions/enterprise-resource-planning/data-integration-management-for-sap/) 
 
-2) Amazon Athena uses AWS Glue Data Catalog (not shown in diagram) to query the tables directly in Amazon S3
+2) Amazon Athena uses AWS Glue Data Catalog to query the tables directly in Amazon S3
 
-3) User interacts with StreamLit chat application to perform tasks or ask questions
+3) User interacts with chat application of choice to perform tasks or answer questions.
 
 4) Amazon Lex natural language chatbot curates communication to handle the response & sends the users question to AWS Lambda for processing
 
-5) AWS Lambda sends the response back to the Chat App via Amazon Lex. Lex stores the message history in a session
+5) AWS Lambda sends the response along with message history back to the Chat App via Amazon Lex. Lex stores the message history in a session
 
-6) The AWS Lambda function uses LangChain to formulate Athena query and retrieves relevant data 
+6) The AWS Lambda function invokes Amazon Bedrock endpoint to formulate Athena query using [LangChain framework](https://aws.amazon.com/what-is/langchain/)
 
-7) The AWS Lambda invokes Amazon Bedrock endpoint and provides the user question and relevant data from Athena. Amazon Bedrock responds with answer in human readable format
+7) The AWS Lambda executes generated Athena query and retrieves data
+
+8) The data is then interpreted by Bedrock  and generate response for data retrieved from Athena query to provide human readable response
 
 
 ## Cost
@@ -88,14 +90,14 @@ This guidance assumes SAP data is extracted in an Amazon S3 bucket; you can use 
 
 Following diagram shows the deployment steps for the solution and we discuss each step in this section:
 
-![Deployment Steps](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/Deployment-Steps.jpg?raw=true)
+![Deployment Steps](assets/images/Deployment-Steps.jpg?raw=true)
 
 
 1. **Get Access to Amazon Bedrock Models**
 
 To get access to Claude foundation model (FM), go to Amazon Bedrock —> Model Access —> Modify Model Access and select Claude:
 
-![Model Access](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/2.Amazon%20Bedrock%20Claude%20Selection.jpeg?raw=true)
+![Model Access](assets/images/2.Amazon%20Bedrock%20Claude%20Selection.jpeg?raw=true)
 
 Click Next and click submit. It may take few minutes for access for model to get updated then you will able to access the Model.
 
@@ -103,11 +105,10 @@ Click Next and click submit. It may take few minutes for access for model to get
 
 <TO BE REVISITED>
 
-For data stored in Amazon S3, use AWS Glue crawler to create database. Follow the instruction as per the [blog](https://aws.amazon.com/blogs/big-data/introducing-aws-glue-crawlers-using-aws-lake-formation-permission-management/). 
-You can schedule recreation of database catalogue to update database catalogue
+For data stored in Amazon S3, use AWS Glue crawler to create database; you can use [Amazon documentation Tutorial](https://docs.aws.amazon.com/glue/latest/dg/tutorial-add-crawler.html). 
+You can also schedule recreation of database catalog to keep it upto date.
 
-Please make sure you are able to query the data using Amazon Athena
-Please take note of: DATABASENAME and SCHEMANAME.
+Tip: make sure you are able to query the data using Amazon Athena and note the DATABASENAME and SCHEMANAME.
 
 
 3. **Create AWS Lambda Layer**
@@ -129,7 +130,7 @@ Following steps show how to create Lambda layer:
    * Compatible architectures: **x86_64**
    * Compatible runtimes: **Python 3.10**
 
-![lambda layer creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/3.LambdaLayerCreation.jpeg?raw=true)
+![lambda layer creation](assets/images/3.LambdaLayerCreation.jpeg?raw=true)
 
 
       **Repeat step 2 above for pyAthena and  SQLAlchemy**
@@ -147,13 +148,13 @@ Follow the steps below to create the Lambda function (as shown in the screenshot
 * Runtime: **Python 3.10**
 * Architectures: **x86_64**
   
-![create lambda function](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/4.%20Lambda%20Function%20Creation.jpeg?raw=true)
+![create lambda function](assets/images/4.%20Lambda%20Function%20Creation.jpeg?raw=true)
 
-* Add [helpers.py](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/helpers.py) file in Code source (as shown in the following screenshot) and remember to change the athena connection parameters in the code (.py file) based on your AWS account configuration
+* Add [helpers.py](assets/code/helpers.py) file in Code source (as shown in the following screenshot) and remember to change the athena connection parameters in the code (.py file) based on your AWS account configuration
 
-![add code to lambda](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/5.LambdaHelperFileCreation.jpeg?raw=true)
+![add code to lambda](assets/images/5.LambdaHelperFileCreation.jpeg?raw=true)
  
-* Add [lambda_fuction.py](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/lambda_function.py), then click **Deploy**
+* Add [lambda_fuction.py](assets/code/lambda_function.py), then click **Deploy**
 
 **Add Layers to Lambda Function**
 
@@ -167,7 +168,7 @@ Follow these steps to add layers to the Lambda function:
     * Custom layers: **LangChainLayer**
     * Version: **Choose the Latest**
   
-![add layer](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/6.LambdaLayerAddition.jpeg?raw=true)
+![add layer](assets/images/6.LambdaLayerAddition.jpeg?raw=true)
 
       Repeat above steps to add layers for **pyAthena** and **SQLAlchemy**
 
@@ -178,7 +179,7 @@ Follow these steps to change the default configuration in your lambda function (
    1. Go to **Configuration - General Configuration**, then click **Edit**
    2. Change timeout from 3 seconds to **10 minutes**, then click **Save**
 
-![configuration settings](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/7.LambdaEditConfiguraitonIncreaseTimeOut.jpeg?raw=true)
+![configuration settings](assets/images/7.LambdaEditConfiguraitonIncreaseTimeOut.jpeg?raw=true)
 
 **Update Role for the Lambda Function**
 
@@ -187,10 +188,10 @@ Follow these steps to update the role in the Lambda function to get right access
 
    * Go to **Configuration - Permissions**, then click at the role name **SAPGenAIAssistant-role-xxxxxxx**
 
-![role name configuration](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/8.LambdaEditConfiguraitonEditRole.jpeg?raw=true)
+![role name configuration](assets/images/8.LambdaEditConfiguraitonEditRole.jpeg?raw=true)
 
    * Click **Add permissions**, click dropdown **Create inline policy**
-   * Click **JSON**, then add [SAPGenAIPolicy](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/code/SAPGenAIPolicy) to **Policy editor**, then click **Next**
+   * Click **JSON**, then add [SAPGenAIPolicy](assets/code/SAPGenAIPolicy) to **Policy editor**, then click **Next**
 
    * Type **SAPGenAIPolicy** as policy name then Click **Create policy**
 
@@ -204,39 +205,39 @@ Follow these steps to create Amazon Lex Bot (as shown in next 2 screenshots):
 * Click Create bot
 * Choose create blank bot and Provide Bot name and configurations and click Next:
 
-![Lex Bot Creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/9.AmazonLexBotCreation1.jpeg?raw=true)
+![Lex Bot Creation](assets/images/9.AmazonLexBotCreation1.jpeg?raw=true)
 
-![Lex IAM creation](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/10.AmazonLexBotCreation2.jpeg?raw=true)
+![Lex IAM creation](assets/images/10.AmazonLexBotCreation2.jpeg?raw=true)
 
 * Select language as English and click Done to create Bot.
 
 * Provide name to NewIntent as greeting_intent and update description “this is hello intent” 
 
-![Lex new intent](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/11.AmazonLexNewIntentCreation.jpeg?raw=true)
+![Lex new intent](assets/images/11.AmazonLexNewIntentCreation.jpeg?raw=true)
 
 * Provide at least one utterance as “hi” and save intent
 
-![sample lex utterance](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/12.AmazonLexUtterance.jpeg?raw=true)
+![sample lex utterance](assets/images/12.AmazonLexUtterance.jpeg?raw=true)
 
 * Navigate to Versions >Version: Draft>All languages>Language: English (US)>Intents
 * Click on FallbackIntent and Activate Fulfillment and click Save Intent and Click Build:
 
-![lex fallback intent](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/13.AmazonLexFallBackIntent.jpeg?raw=true)
+![lex fallback intent](assets/images/13.AmazonLexFallBackIntent.jpeg?raw=true)
 
 * Click on Test
 * Select Lambda function created and select $Latest and save:
 
-![save lambda test function](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/14.AmazonLexTestLambdaFunction.jpeg?raw=true)
+![save lambda test function](assets/images/14.AmazonLexTestLambdaFunction.jpeg?raw=true)
 
 * Type questions to test the response:
 
-![test response from lex](https://github.com/aws-solutions-library-samples/guidance-to-summarize-sap-supply-chain-data-using-genai-on-aws/blob/main/assets/images/15.AmazonLexTestResult.jpeg?raw=true)
+![test response from lex](assets/images/15.AmazonLexTestResult.jpeg?raw=true)
 
 <br>
 
-6. **Create Strimlit App for Lex**
+6. **Create Lex Web UI**
 
-You can use any frontend application of your choice such as SAP BTP Build Apps. This guidance uses Streamlit app as shown in [this guidance](https://github.com/aws-samples/aws-lex-web-ui).
+You can use any frontend application of your choice such as SAP BTP Build Apps. This guidance uses Web UI for Lex as shown in [this guidance](https://github.com/aws-samples/aws-lex-web-ui).
 
 
 ## Running the Guidance
