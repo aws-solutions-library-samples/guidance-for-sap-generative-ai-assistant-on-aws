@@ -9,12 +9,9 @@ This guidance demonstrates how to improve business user productivity and experie
 2. [Prerequisites](#prerequisites)
 3. [Deployment Steps](#deployment-steps)
 4. [Deployment Validation](#deployment-validation)
-5. [Running the Guidance](#running-the-guidance)
-6. [Next Steps](#next-steps)
-7. [Cleanup](#cleanup)
-8. [FAQ, known issues, additional considerations, and limitations](#faq)
-9. [Notices](#notices)
-10. [Contributors](#Contributors)
+5. [Next Steps](#next-steps)
+6. [Notices](#notices)
+
 
 ## Overview
 
