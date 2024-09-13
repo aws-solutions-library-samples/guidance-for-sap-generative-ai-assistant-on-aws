@@ -240,21 +240,15 @@ Follow these steps to create Amazon Lex Bot (as shown in next 2 screenshots):
 You can use any frontend application of your choice such as SAP BTP Build Apps. This guidance uses Web UI for Lex as shown in [this guidance](https://github.com/aws-samples/aws-lex-web-ui).
 
 
-## Running the Guidance
-
-
 ## Next Steps
 
+This guidance provides the zip files for Lambda layer, which are compatible with Python 3.10; for future releases, you can create layers by downloading libraries for following sources:
 
+* [SQL Alchemy](https://www.sqlalchemy.org/download.html)
+* [PyAthena](https://pypi.org/project/PyAthena/#files)
+* [Langchain](https://python.langchain.com/v0.2/docs/integrations/platforms/aws/)
 
-## Cleanup
-
-## FAQ
 
 ## Notices
 
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
-
-## Contributors
-
-
