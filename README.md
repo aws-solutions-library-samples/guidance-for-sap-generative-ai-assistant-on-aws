@@ -245,7 +245,7 @@ This guidance provides the zip files for Lambda layer, which are compatible with
 * langchain-0.0.190
 * pyathena-3.3.0
 
-In next release of the guidance, we intend to provide instructions about how to custmozed the libraries yourself by downloading from official sources (as below): 
+In next release of the guidance, we intend to provide instructions about how to customize the libraries yourself by downloading from official sources (as below): 
 
 * [SQL Alchemy](https://www.sqlalchemy.org/download.html)
 * [PyAthena](https://pypi.org/project/PyAthena/#files)
