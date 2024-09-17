@@ -239,7 +239,13 @@ You can use any frontend application of your choice such as SAP BTP Build Apps. 
 
 ## Next Steps
 
-This guidance provides the zip files for Lambda layer, which are compatible with Python 3.10; for future releases, you can create layers by downloading libraries for following sources:
+This guidance provides the zip files for Lambda layer, which are compatible with Python 3.10; specifically, following versions were used:
+
+* SQLAlchemy-2.0.27
+* langchain-0.0.190
+* pyathena-3.3.0
+
+In next release of the guidance, we intend to provide instructions about how to custmozed the libraries yourself by downloading from official sources (as below): 
 
 * [SQL Alchemy](https://www.sqlalchemy.org/download.html)
 * [PyAthena](https://pypi.org/project/PyAthena/#files)
