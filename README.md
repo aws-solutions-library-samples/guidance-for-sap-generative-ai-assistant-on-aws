@@ -82,6 +82,25 @@ To deploy this solution in your AWS account, you need acces to deploy and config
 This guidance assumes SAP data is extracted in an Amazon S3 bucket; you can use one of the approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card) to extract data from your SAP system.
 [Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/PATHtoData/]
 
+* Create policy for Lambda role
+  
+Follow these steps to create the role that will be used in Lambda function 
+
+1. Clone the GitHub repository to access the AWS CloudFormation deployment template.
+```
+git clone https://github.com/aws-solutions-library-samples/guidance-for-sap-generative-ai-assistant-on-aws.git
+cd ./guidance-for-sap-generative-ai-assistant-on-aws
+```
+
+2. Deploy the AWS CloudFormation Stack
+This guidance utilizes the `AdministratorAccess` role for deployment. For use in a production environment, refer to the [security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the AWS Identity and Access Management (IAM) documentation and modify the IAM roles as needed.
+
+* Sign in to the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home)
+* Create Stack > Upload the `guidance-for-sap-generative-ai-assistant-on-aws/blob/main/assets/code/sap-genai-assistant-on-aws.yml` file
+* Deploy the CloudFormation stack
+
+Now you have created the policy with name _SAPGenAIAssistant_ that will be used later. 
+
 
 ## Deployment Steps
 
@@ -187,10 +206,8 @@ Follow these steps to update the role in the Lambda function to get right access
 
 ![role name configuration](assets/images/8.LambdaEditConfiguraitonEditRole.jpeg?raw=true)
 
-   * Click **Add permissions**, click dropdown **Create inline policy**
-   * Click **JSON**, then add [SAPGenAIPolicy](assets/code/SAPGenAIPolicy) to **Policy editor**, then click **Next**
-
-   * Type **SAPGenAIPolicy** as policy name then Click **Create policy**
+   * Click **Add permissions**, click dropdown **Add inline policy**
+   * Enter Policy name "SAPGenAIAssistant" (this was created as described in the pre-requisite section)
 
 <br>
 
