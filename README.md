@@ -82,7 +82,7 @@ To deploy this solution in your AWS account, you need acces to deploy and config
 This guidance assumes SAP data is extracted in an Amazon S3 bucket; you can use one of the approaches highlighted in the [Guidance for SAP Data Integration and Management on AWS](https://aws.amazon.com/solutions/guidance/sap-data-integration-and-management-on-aws/?did=sl_card&trk=sl_card) to extract data from your SAP system.
 [Note: Make a note of s3 path where data is stored; for example: s3://YOURSLAMBDALAYERS3/PATHtoData/]
 
-* Create policy for Lambda role
+**Create policy for Lambda role**
   
 Follow these steps to create the role that will be used in Lambda function 
 
