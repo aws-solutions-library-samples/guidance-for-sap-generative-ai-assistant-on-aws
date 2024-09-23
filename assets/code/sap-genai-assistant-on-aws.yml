@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template (SO9490) that deploys a inline policy in the IAM Policy Center required for SAP GenAI Assistant to run.
+Parameters:
+  PolicyName:
+    Type: String
+    Default: SAPGenAIAssistant
+Resources:
+  MyIAMPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: !Ref PolicyName
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'bedrock:*'
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - 'athena:*'
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - 's3:GetObject'
+              - 's3:ListObject'
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - 'glue:GetDatabase'
+              - 'glue:GetTable'
+              - 'glue:GetDatabases'
+              - 'glue:GetTables'
+            Resource: '*'
+
+Outputs:
+  PolicyArn:
+    Description: 'ARN of the created IAM Policy'
+    Value: !Ref MyIAMPolicy
