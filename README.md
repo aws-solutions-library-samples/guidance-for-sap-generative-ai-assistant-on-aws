@@ -119,7 +119,6 @@ Click Next and click submit. It may take few minutes for access for model to get
 
 2. **Create AWS glue data catalog**
 
-<TO BE REVISITED>
 
 For data stored in Amazon S3, use AWS Glue crawler to create database; you can use [Amazon documentation Tutorial](https://docs.aws.amazon.com/glue/latest/dg/tutorial-add-crawler.html). 
 You can also schedule recreation of database catalog to keep it upto date.
