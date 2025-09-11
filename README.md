@@ -165,7 +165,7 @@ Follow the steps below to create the Lambda function (as shown in the screenshot
   
 ![create lambda function](assets/images/4.%20Lambda%20Function%20Creation.jpeg?raw=true)
 
-* Add [helpers.py](assets/code/helpers.py) file in Code source (as shown in the following screenshot) and remember to change the athena connection parameters in the code (.py file) based on your AWS account configuration
+* Add [helpers.py](assets/code/helpers.py) file in Code source (as shown in the following screenshot) and remember to change the athena connection parameters and S3 bucket name in the code (.py file) based on your AWS account configuration
 
 ![add code to lambda](assets/images/5.LambdaHelperFileCreation.jpeg?raw=true)
  
