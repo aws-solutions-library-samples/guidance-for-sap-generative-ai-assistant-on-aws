@@ -55,7 +55,7 @@ logger.setLevel(logging.INFO)
 connathena=f"athena.us-east-1.amazonaws.com"#Update, if region is different
 portathena='443' #Update, if port is different
 schemaathena='SCHEMANAME'#'cfn_covid_lake' #glue_database_name #from cfn params
-s3stagingathena=f's3://sap-analytics-glue-databucket/athenaresults/'#from cfn params
+s3stagingathena=f's3://<replace with S3 bucket name with athenaresults>'#from cfn params
 wkgrpathena='primary'#Update, if workgroup is different
 connection_string = f"awsathena+rest://@{connathena}:{portathena}/{schemaathena}?s3_staging_dir={s3stagingathena}/&work_group={wkgrpathena}"
 print("connection_string: ",connection_string)
